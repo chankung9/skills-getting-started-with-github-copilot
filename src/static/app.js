@@ -4,6 +4,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signup-form");
   const messageDiv = document.getElementById("message");
 
+  // Function to create participant badges
+  function createParticipantBadges(participants) {
+    if (participants.length === 0) {
+      return "No participants yet";
+    }
+
+    return participants
+      .map(
+        (participant) =>
+          `<span class="participant-badge">${participant}</span>` // Fixed class name
+      )
+      .join("");
+  }
+
   // Function to fetch activities from API
   async function fetchActivities() {
     try {
@@ -25,6 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
           <p>${details.description}</p>
           <p><strong>Schedule:</strong> ${details.schedule}</p>
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
+          <div class="participants">
+            <strong>Participants:</strong> ${createParticipantBadges(details.participants)}
+          </div>
         `;
 
         activitiesList.appendChild(activityCard);
